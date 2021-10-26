@@ -22,6 +22,7 @@ static GLint y = 0;
 static GLint z = 0; 
 GLint* vertices[6];
 GLfloat* colors[6];
+GLfloat* vertices2[6];
 
 void setupVertexAndColor() {
 	static GLint logoG[] = {
@@ -1536,28 +1537,27 @@ void setupVertexAndColor() {
 	};
 
 	//老師說interleaved arrays會用就好，所以我只有logoG有用，並且只在MULTIDRAWELEMENTS區塊使用
-	static GLint logoG_interleaved[] = {
-		778, 274,	0,1,0,
-		791, 203,	0,1,0,
-		878, 177,	0,1,0,
-		850, 265,	0,1,0,
+	static GLfloat logoG_interleaved[] = {
+				0,1,0,		778, 274,0,
+				0,1,0,		791, 203,0,
+				0,1,0,		878, 177,0,
+				0,1,0,		850, 265,0,
 
-		788, 212,	0,1,0,
-		767, 141,	0,1,0,
-		843, 159,	0,1,0,
-		882, 250,	0,1,0,
+				0,1,0,		788, 212,0,
+				0,1,0,		767, 141,0,
+				0,1,0,		843, 159,0,
+				0,1,0,		882, 250,0,
 
-		841, 159,	0,1,0,
-		917, 139,	0,1,0,
-		891, 219,	0,1,0,
-		819, 237,	0,1,0,
+				0,1,0,		841, 159,0,
+				0,1,0,		917, 139,0,
+				0,1,0,		891, 219,0,
+				0,1,0,		819, 237,0,
 
-		895, 214,	0,1,0,
-		906, 274,	0,1,0,
-		846, 264,	0,1,0,
-		806, 177,	0,1,0,
+				0,1,0,		895, 214,0,
+				0,1,0,		906, 274,0,
+				0,1,0,		846, 264,0,
+				0,1,0,		806, 177,0
 	};
-
 
 	vertices[0] = logoG;
 	vertices[1] = logoR;
@@ -1565,7 +1565,7 @@ void setupVertexAndColor() {
 	vertices[3] = zhTitle;
 	vertices[4] = enTitle;
 
-	vertices[5] = logoG_interleaved;
+	vertices2[0] = logoG_interleaved;
 
 
 	colors[0] = logoG_color;
@@ -1804,8 +1804,7 @@ void display()
 		glRectf(10, 10, 945, 25.0);
 
 		//logo
-		glColorPointer(3, GL_FLOAT, 0, colors[0]);
-		glVertexPointer(2, GL_INT, 0, vertices[0]);
+		glInterleavedArrays(GL_C3F_V3F, 0, vertices2[0]);
 		static GLint logo_count_g[] = { 4, 4, 4, 4 };
 		static GLint logo_g[][4] = { 
 			{0, 1, 2, 3},
