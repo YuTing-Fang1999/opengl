@@ -13,6 +13,7 @@ pushMatrix、popMatrix運用
 ### cube.cpp
 使用gluLookAt與鍵盤事件完成wasd的移動  
 使用f11切換全螢幕  
+object與相機一起移動  
 
 ## hw
 ### hw3
