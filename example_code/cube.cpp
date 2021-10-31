@@ -7,8 +7,11 @@
 #include <GL/glut.h>
 #include <stdlib.h>
 
-float z = 5, x = 0;
+float z = 3, x = 0;
 bool fullscreen = false;
+GLint m_viewport[4];
+
+
 void init(void)
 {
     glClearColor(0.0, 0.0, 0.0, 0.0);
@@ -22,8 +25,16 @@ void display(void)
     glLoadIdentity();             /* clear the matrix */
             /* viewing transformation  */ //(相機位置, 看的方向, up-vector)
     gluLookAt(x, 0.0, z, x, 0.0, z-1.0, 0.0, 1.0, 0.0);
+    glPushMatrix();
+        glScalef(1.0, 2.0, 1.0);      /* modeling transformation */
+        glutWireCube(1.0);
+        glPopMatrix();
+    glPushMatrix();
+    //glClearDepth(GL_DEPTH_BUFFER_BIT);
+    glTranslated(x+0.5, 0,z-1.5);
     glScalef(1.0, 2.0, 1.0);      /* modeling transformation */
     glutWireCube(1.0);
+    glPopMatrix();
     glFlush();
 }
 
@@ -34,12 +45,14 @@ void reshape(int w, int h)
     glLoadIdentity();
     if (w <= h)
         glOrtho(-1.0, 1.0, -1.0 * (GLfloat)h / (GLfloat)w,
-            1.0 * (GLfloat)h / (GLfloat)w, -1.0, 1.0);
+            1.0 * (GLfloat)h / (GLfloat)w, -5.0, 1.0);
     else
         glOrtho(-1.0 * (GLfloat)w / (GLfloat)h,
-            1.0 * (GLfloat)w / (GLfloat)h, -1.0, 1.0, -1.0, 1.0);
-    glFrustum(-1.0, 1.0, -1.0, 1.0, 1, 50.0);
+            1.0 * (GLfloat)w / (GLfloat)h, -1.0, 1.0, -5.0, 1.0);//2D
+    glFrustum(-1.0, 1.0, -1.0, 1.0, 1.0, 50.0);//3D
     glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+    
 }
 
 void keyboard(unsigned char key, int mouse_x, int y)
@@ -78,7 +91,7 @@ void specialKey(GLint key, GLint x, GLint y)
             glutFullScreen(); //全螢幕
         else
         {
-            glutReshapeWindow(500, 500);
+            glutReshapeWindow(600, 336);
             glutPositionWindow(100, 100);
         }
     }
@@ -88,7 +101,7 @@ int main(int argc, char** argv)
 {
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
-    glutInitWindowSize(500, 500);
+    glutInitWindowSize(600, 336);
     glutInitWindowPosition(100, 100);
     glutCreateWindow(argv[0]);
     init();
