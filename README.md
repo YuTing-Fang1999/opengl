@@ -21,4 +21,8 @@ object與相機一起移動
 利用鍵盤事件切換畫法  
 利用滑鼠事件沿著軸旋轉  
 
+## OpenGL_code
+如果執行有問題  
+記得要在最前面include <GL/glew.h>  
+
 
