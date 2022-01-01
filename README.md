@@ -25,4 +25,8 @@ object與相機一起移動
 如果執行有問題  
 記得要在最前面include <GL/glew.h>  
 
+### hw6
+此作業集合了整學期學到的東西  
+![image](https://github.com/YuTing-Fang1999/opengl/blob/main/example.JPG)
+
 
