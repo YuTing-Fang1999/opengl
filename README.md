@@ -28,5 +28,6 @@ object與相機一起移動
 ## OpenGL_code
 如果執行有問題  
 記得要在最前面include <GL/glew.h>  
+還有glewInit()
 
 
